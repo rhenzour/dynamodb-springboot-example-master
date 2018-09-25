@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 
 import brussels.formation.model.Place;
@@ -26,16 +28,19 @@ public class DynamodbPlaceRepository extends DynamodbRepository implements Place
     public Place getPlace(String placeId) {
         DynamoDB dynamodb = new DynamoDB(getDynamodbClient());
         Table    table    = dynamodb.getTable("Team2");
-        Item item = table.getItem("deviceId", placeId);
+//        Item item = table.getItem("deviceId", placeId);
+        ItemCollection<ScanOutcome> scan = table.scan();
         Place place = null;
         
-        if (item != null) {
-             place = new Place();
-             place.setDeviceId(item.getString("deviceId"));
-            
-        }
+        scan.forEach(p->{System.out.println(p);});
         
-        return place;
+//        if (item != null) {
+//             place = new Place();
+//             place.setDeviceId(item.getString("deviceId"));
+//            
+//        }
+
+        return null;
     }
     
     // ---------------------------------------------------------------------------------Method(s)---

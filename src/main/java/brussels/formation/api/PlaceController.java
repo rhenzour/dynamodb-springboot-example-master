@@ -33,11 +33,12 @@ public class PlaceController {
     
     // -------------------------------------------------------------------------------Override(s)---
   
-    // --------------------------------------------------------------------------------Method(s)---
+    // ---------------------------------------------------------------------------------Method(s)---
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Place getPlace(HttpServletResponse response, @RequestParam("placeId") String placeId) {
-        Place place = placeAction.getPlace("S");
+    	System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+placeId);
+        Place place = placeAction.getPlace(placeId);
         if (place == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
